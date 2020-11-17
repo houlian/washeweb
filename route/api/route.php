@@ -53,6 +53,7 @@ Route::group(function () {
     Route::get('logout', 'AuthController/logout')->name('logout');// 退出登录
     Route::post('switch_h5', 'AuthController/switch_h5')->name('switch_h5');// 切换账号
     Route::post('binding', 'AuthController/binding_phone')->name('bindingPhone');// 绑定手机号
+    Route::post('mobilebinding', 'AuthController/mobilebinding_phone')->name('mobilebindingPhone');// 绑定手机号
     //产品类
     Route::get('product/code/:id', 'store.StoreProductController/code')->name('productCode');//产品分享二维码 推广员
 

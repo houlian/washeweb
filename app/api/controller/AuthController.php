@@ -391,4 +391,27 @@ class AuthController
         else
             return app('json')->fail('绑定失败');
     }
+
+    /**
+     * 绑定手机号
+     */
+    public function mobilebinding_phone(Request $request)
+    {
+        list($phone, $captcha, $step) = UtilService::postMore([
+            ['encryptedData', ''],
+            ['iv', ''],
+        ], $request, true);
+
+        //验证手机号
+
+        $userInfo = User::where('uid', $request->uid())->find();
+
+
+        $userInfo->account = $phone;
+        $userInfo->phone = $phone;
+        if ($userInfo->save() || $userPhone == $phone)
+            return app('json')->success('绑定成功');
+        else
+            return app('json')->fail('绑定失败');
+    }
 }
