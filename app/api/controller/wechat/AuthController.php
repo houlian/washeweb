@@ -92,6 +92,42 @@ class AuthController
     }
 
     /**
+     * 小程序授权登录 手机号
+     */
+    public function loginmobile(Request $request)
+    {
+        
+        $data = UtilService::postMore([
+            ['iv', ''],
+            ['cache_key', ''],
+            ['encryptedData', ''],
+        ]);//获取前台传的code
+        // var_dump($data);
+        $session_key = Cache::get('eb_api_code_' . $data['cache_key']);
+        if (!$session_key){
+            return app('json')->fail('授权失败,参数有误');
+        }
+        try {
+            //解密获取用户信息
+            $userInfo = MiniProgramService::encryptor($session_key, $data['iv'], $data['encryptedData']);
+        } catch (\Exception $e) {
+            if ($e->getCode() == '-41003') return app('json')->fail('获取会话密匙失败');
+        }
+
+        //验证手机号
+        $user = User::where('uid', $request->uid())->find();
+        $user->account = $userInfo['phoneNumber'];
+        $user->phone = $userInfo['phoneNumber'];
+        if ($user->save()){
+            return app('json')->success('绑定成功');
+        }else{
+            return app('json')->fail('绑定失败');
+        }
+
+    }
+
+
+    /**
      * 获取授权logo
      * @param Request $request
      * @return mixed

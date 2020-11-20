@@ -53,7 +53,7 @@ Route::group(function () {
     Route::get('logout', 'AuthController/logout')->name('logout');// 退出登录
     Route::post('switch_h5', 'AuthController/switch_h5')->name('switch_h5');// 切换账号
     Route::post('binding', 'AuthController/binding_phone')->name('bindingPhone');// 绑定手机号
-    Route::post('mobilebinding', 'AuthController/mobilebinding_phone')->name('mobilebindingPhone');// 绑定手机号
+    // Route::post('mobilebinding', 'AuthController/mobilebinding_phone')->name('mobilebindingPhone');// 绑定手机号
     //产品类
     Route::get('product/code/:id', 'store.StoreProductController/code')->name('productCode');//产品分享二维码 推广员
 
@@ -157,6 +157,8 @@ Route::group(function () {
     Route::get('menu/user', 'PublicController/menu_user')->name('menuUser');//个人中心菜单
     Route::get('user/level/detection', 'user.UserLevelController/detection')->name('userLevelDetection');//检测用户是否可以成为会员
     Route::get('user/level/grade', 'user.UserLevelController/grade')->name('userLevelGrade');//会员等级列表
+    //add by 2020
+    Route::get('user/level/member', 'user.UserAction/member')->name('userMember');//会员等级列表
     Route::get('user/level/task/:id', 'user.UserLevelController/task')->name('userLevelTask');//获取等级任务
     //首页获取未支付订单
     Route::get('order/nopay', 'order.StoreOrderController/get_noPay')->name('getNoPay');//获取未支付订单
@@ -202,6 +204,8 @@ Route::group(function () {
 
     //小程序登陆
     Route::post('wechat/mp_auth', 'wechat.AuthController/mp_auth')->name('mpAuth');//小程序登陆
+    //add by 2020
+    Route::post('wechat/loginmobile', 'wechat.AuthController/loginmobile')->name('loginmobile');//小程序登陆
     Route::get('wechat/get_logo', 'wechat.AuthController/get_logo')->name('getLogo');//小程序登陆授权展示logo
     Route::post('wechat/set_form_id', 'wechat.AuthController/set_form_id')->name('setFormId');//小程序登陆收集form id
     Route::get('wechat/teml_ids', 'wechat.AuthController/teml_ids')->name('wechatTemlIds');//小程序订阅消息
