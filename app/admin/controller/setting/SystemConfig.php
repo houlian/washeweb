@@ -56,6 +56,7 @@ class SystemConfig extends AuthController
 
         //获取分类配置参数
         $list = ConfigModel::getAll($tid);
+        var_dump($list);exit();
         $formbuider = ConfigModel::builder_config_from_data($list);//生产表单json
         $form = Form::make_post_form('编辑配置', $formbuider, Url::buildUrl('save_basics'));
 
